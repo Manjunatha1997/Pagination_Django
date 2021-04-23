@@ -1,0 +1,109 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <title>Pagination</title>
+</head>
+<body>
+    <h1>All names</h1>
+
+    <div class="section" id="portfolio">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6 ml-auto mr-auto">
+              <div class="h4 text-center mb-4 title">Portfolio</div>
+
+            </div>
+          </div>
+          <div class="tab-content gallery mt-5">
+            <div class="tab-pane active" id="web-development">
+              <div class="ml-auto mr-auto">
+                <div class="row">
+      
+                    {% for img in portfolio %}
+                  <div class="col-md-6">
+                    <div class="cc-porfolio-image img-raised" data-aos="fade-up" data-aos-anchor-placement="top-bottom"><a href="#web-development">
+                        <figure class="cc-effect">
+      <!--                    <img src="static/images/project-1.jpg" alt="Image"/>-->
+                          <!-- <img src="{{ img.image.url }}" height="400px" width="550px" alt="Image"/> -->
+                          {{img.name}}<br>
+                        </figure></a></div>
+                  </div>
+                  {% endfor %}
+      
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <div class="container">
+        <ul class="pagination" style="justify-content: center;">
+          {% if portfolio.has_previous %}
+            <li class="page-item"><a class="page-link" style="font-weight:bold;" href="?page={{ portfolio.previous_page_number }} #portfolio" id="pre">Previous</a></li>
+      
+          {% else %}
+             <li class="page-item disabled "><a class="page-link text-dark" style="font-weight:bold;" href="#portfolio" tabindex="-1">Previous</a></li>
+          {% endif %}
+          {% for i in portfolio.paginator.page_range %}
+            {% if portfolio.number == i %}
+          <li class="page-item active"><a class="page-link" href="#portfolio">{{i}}<span class="sr-only">(current)</span></a></li>
+            {% else %}
+          <a href="#portfolio-pagination"></a>
+          <li class="page-item"><a class="page-link" href="?page={{ i }} #portfolio">{{i}}</a></li>
+            {% endif %}
+          {% endfor %}
+          {% if portfolio.has_next %}
+          <li class="page-item"><a class="page-link" id="next" style="font-weight:bold;" href="?page={{ portfolio.next_page_number }} #portfolio">Next</a></li>
+          {% else %}
+            <li class="page-item disabled "><a class="page-link text-dark" style="font-weight:bold;" href="#portfolio" tabindex="-1">Next</a></li>
+          {% endif %}
+        </ul>
+   </div>
+
+
+
+
+   <script>
+    document.onkeydown=function(e){
+      switch(e.keyCode){
+        case 39:
+          {
+            document.getElementById("next").click();
+
+          }
+          break;
+        case 37:
+        {
+          document.getElementById("pre").click();
+
+        }
+        break;
+
+      }
+    };
+   </script>
+
+
+
+
+
+
+
+
+</body>
+
+
+</html>
+
